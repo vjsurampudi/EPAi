@@ -67,4 +67,57 @@ By explicitly calling x as nonlocal, the value of x is assigned to 'python'. cal
 
 <h1> Closures and Applications </h1>
 
+<h2> Advantages of Closure </h2>
+
+![closure](./ApplicationsofClosure.JPG)
+
+<h2> What are Closures? </h2>
+
+![closure](./closure.JPG)
+
+```
+def outer():
+    x = 'python'
+    print(hex(id(x)))
+    def inner():
+        print(hex(id(x)))
+        print("{0} rocks!".format(x))
+    return inner
+fn = outer()
+fn()
+```
+In the code above, the hex(id()) of x at both the locations  - outer and innter will be the same.
+
+* Every time a function is run, a new scope is created. If that function generates a closure, a new closure is created every time as well
+
+```
+def counter():
+  count = 0
+  
+  def inc():
+    nonlocal count
+    count+=1
+    return count
+  return inc
+f1 = counter()
+f2 = counter()
+f1()
+f1()
+f1()
+f2()
+```
+Output: 1 2 3 1
+
+* In the above code, f1 and f2 do not have the same extended scope. They are different instances of closure. 
+* Two or more inner functions may have a shared extended scopes
+
+![closure](./SharedExtendedScopes.JPG)
+
+![closure](./nestedclosures.JPG)
+
 <h1> Assignment </h1>
+
+* Write a closure that takes a function and then check whether the function passed has a docstring with more than 50 characters. 50 is stored as a free variable
+* Write a closure that gives you the next Fibonacci number
+* We wrote a closure that counts how many times a function was called. Write a new one that can keep a track of how many times add/mul/div functions were called, and update a global dictionary variable with the counts
+* Modify above such that now we can pass in different dictionary variables to update different dictionaries
