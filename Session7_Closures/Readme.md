@@ -23,7 +23,48 @@ A new local namespace is created each time a function is executed. It is the loc
 * Inner functions will also have access to its enclosing scopes (scope of outer function)
 * That scope is neither local (to inner function) nor global. It is called nonlocal scope
 
+```
+a = 10
+def outer_func():
+  global a
+  a = 1000
+  
+  outer_func()
+  print(a)
+  
+```  
+The output is 1000. The same can be achieved using inner functions using the code below:
+```
+def outer_func2():
+  def inner_func():
+    global a
+    a = "Hello"
+  inner_func()
+outer_func2()
+print(a)
+```
+The code above demonstrates the use of the global keyword to access outer function variable from inner function
 
+* To modify non local variables, nonlocal keyword should be used
 
+```
+def outer_func():
+  x = 'hello'
+  
+  def inner_func():
+    nonlocal x
+    x = 'python'
+  inner_func()
+  print(x)
+outer_func()
 
+```
+By explicitly calling x as nonlocal, the value of x is assigned to 'python'. calling outer_func would generate an output 'python'
 
+* Whenever python is told that a variable is nonlocal, it looks for enclosing local scopes but not in **global** scope
+
+![Scope Order](./nonlocal_global.JPG)
+
+<h1> Closures and Applications </h1>
+
+<h1> Assignment </h1>
